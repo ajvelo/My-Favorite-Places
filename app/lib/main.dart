@@ -1,4 +1,5 @@
 import 'package:app/providers/great_places.dart';
+import 'package:app/screens/add_place_screen.dart';
 import 'package:app/screens/places_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +15,17 @@ class MyApp extends StatelessWidget {
       value: GreatPlaces(),
       child: MaterialApp(
         title: 'My Favorite Places',
-        theme:
-            ThemeData(primarySwatch: Colors.indigo, accentColor: Colors.amber),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            primarySwatch: Colors.indigo,
+            accentColor: Colors.amber,
+            textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(primary: Colors.indigo)),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(primary: Colors.amber),
+            )),
         home: PlacesListScreen(),
+        routes: {AddPlaceScreen.routeName: (ctx) => AddPlaceScreen()},
       ),
     );
   }
