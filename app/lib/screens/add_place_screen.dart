@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:app/providers/great_places.dart';
 import 'package:app/widgets/image_input.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   static const routeName = '/add-place';
@@ -10,6 +14,21 @@ class AddPlaceScreen extends StatefulWidget {
 
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
+  File? _pickedImage;
+
+  void _selectImage(File pickedImage) {
+    _pickedImage = pickedImage;
+  }
+
+  void _savePlace() {
+    if (_titleController.text.isEmpty || _pickedImage == null) {
+      return;
+    } else {
+      Provider.of<GreatPlaces>(context, listen: false)
+          .addPlace(_titleController.text, _pickedImage!);
+      Navigator.of(context).pop();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +52,9 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   SizedBox(
                     height: 16.0,
                   ),
-                  ImageInput(),
+                  ImageInput(
+                    onSelectImage: _selectImage,
+                  ),
                 ],
               ),
             ),
@@ -41,9 +62,11 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.add),
-              label: Text('Add a Favorite Place'),
+              onPressed: () {
+                _savePlace();
+              },
+              icon: Icon(Icons.save),
+              label: Text('Save your favorite place'),
             ),
           )
         ],
