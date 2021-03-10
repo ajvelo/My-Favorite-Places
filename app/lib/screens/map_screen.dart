@@ -39,7 +39,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_pickedPosition == null) {
+        if (_pickedPosition == null && widget.isSelecting) {
           _pickedPosition = currentPosition;
         }
         Navigator.of(context).pop(_pickedPosition);
@@ -64,10 +64,14 @@ class _MapScreenState extends State<MapScreen> {
               currentPosition = snapshot.data;
               return snapshot.hasData
                   ? GoogleMap(
-                      initialCameraPosition:
-                          CameraPosition(target: currentPosition!, zoom: 16),
+                      initialCameraPosition: CameraPosition(
+                          target: widget.isSelecting
+                              ? currentPosition!
+                              : LatLng(widget.initialLocation!.latitude,
+                                  widget.initialLocation!.longitude),
+                          zoom: 16),
                       onTap: widget.isSelecting ? _selectLocation : null,
-                      markers: _pickedPosition == null
+                      markers: (_pickedPosition == null && widget.isSelecting)
                           ? {
                               Marker(
                                   markerId: MarkerId('m1'),
@@ -76,7 +80,9 @@ class _MapScreenState extends State<MapScreen> {
                           : {
                               Marker(
                                   markerId: MarkerId('m1'),
-                                  position: _pickedPosition!)
+                                  position: _pickedPosition ??
+                                      LatLng(widget.initialLocation!.latitude,
+                                          widget.initialLocation!.longitude))
                             },
                     )
                   : Center(

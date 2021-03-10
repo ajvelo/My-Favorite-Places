@@ -1,5 +1,6 @@
 import 'package:app/providers/great_places.dart';
 import 'package:app/screens/add_place_screen.dart';
+import 'package:app/screens/place_detail_screen.dart';
 import 'package:app/screens/places_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,10 @@ class MyApp extends StatelessWidget {
               style: ElevatedButton.styleFrom(primary: Colors.amber),
             )),
         home: PlacesListScreen(),
-        routes: {AddPlaceScreen.routeName: (ctx) => AddPlaceScreen()},
+        routes: {
+          AddPlaceScreen.routeName: (ctx) => AddPlaceScreen(),
+          PlaceDetailScreen.routeName: (ctx) => PlaceDetailScreen()
+        },
       ),
     );
   }

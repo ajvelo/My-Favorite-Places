@@ -1,4 +1,5 @@
 import 'package:app/providers/great_places.dart';
+import 'package:app/screens/place_detail_screen.dart';
 import 'package:app/widgets/add-favorite-place-btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,9 @@ class PlacesListScreen extends StatelessWidget {
                                 subtitle:
                                     Text(value.items[index].location.address!),
                                 onTap: () {
-                                  // Go to detail page
+                                  Navigator.of(context).pushNamed(
+                                      PlaceDetailScreen.routeName,
+                                      arguments: value.items[index].id);
                                 },
                               );
                             },
