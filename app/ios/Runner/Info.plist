@@ -22,6 +22,10 @@
 	<string>This application needs access to your camera to take photos of your favorite place.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This application needs access to your microphone to record videos of your favorite place.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This application needs access to your location to get the location of your favorite place.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This application needs access to your location to get the location of your favorite place.</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
