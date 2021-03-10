@@ -14,41 +14,43 @@ class PlacesListScreen extends StatelessWidget {
         body: FutureBuilder(
           future: Provider.of<GreatPlaces>(context, listen: false)
               .fetchAndSetPlaces(),
-          builder: (context, snapshot) =>
-              snapshot.connectionState == ConnectionState.waiting
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Consumer<GreatPlaces>(
-                      builder: (context, value, child) {
-                        return value.items.length <= 0
-                            ? child!
-                            : ListView.builder(
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    leading: CircleAvatar(
-                                      backgroundImage:
-                                          FileImage(value.items[index].image),
-                                    ),
-                                    title: Text(value.items[index].title),
-                                    onTap: () {
-                                      // Go to detail page
-                                    },
-                                  );
+          builder: (context, snapshot) => snapshot.connectionState ==
+                  ConnectionState.waiting
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Consumer<GreatPlaces>(
+                  builder: (context, value, child) {
+                    return value.items.length <= 0
+                        ? child!
+                        : ListView.builder(
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage:
+                                      FileImage(value.items[index].image),
+                                ),
+                                title: Text(value.items[index].title),
+                                subtitle:
+                                    Text(value.items[index].location.address!),
+                                onTap: () {
+                                  // Go to detail page
                                 },
-                                itemCount: value.items.length,
                               );
-                      },
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Add a favorite place!'),
-                            AddFavoritePlaceButton()
-                          ],
-                        ),
-                      ),
+                            },
+                            itemCount: value.items.length,
+                          );
+                  },
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Add a favorite place!'),
+                        AddFavoritePlaceButton()
+                      ],
                     ),
+                  ),
+                ),
         ));
   }
 }

@@ -5,7 +5,6 @@ import 'package:sqflite/sqflite.dart';
 class DBHelper {
   static Future<Database> databse() async {
     final dbPath = await sql.getDatabasesPath();
-    print(dbPath);
     return sql.openDatabase(path.join(dbPath!, 'user_places.db'),
         onCreate: (db, version) {
       return db.execute(
